@@ -5,24 +5,26 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+using DotMovies.Data;
+using DotMovies.Models;
 
 namespace DotMovies.Pages
 {
     public class SavedModel : PageModel
     {
-        private readonly ILogger<SavedModel> _logger;
+        private readonly MoviesDbContext _context;
 
-        public SavedModel(ILogger<SavedModel> logger)
+        public SavedModel(MoviesDbContext context)
         {
-            _logger = logger;
+            _context = context;
         }
 
-        [BindProperty]
-        public Movie Movie { get; set; }
+        public IList<Movie> Movies { get; set; }
 
         public async Task OnGetAsync()
         {
-            Movie = await _context.Movies.ToListAsync();
+            Movies = await _context.Movies.ToListAsync();
         }
     }
 }

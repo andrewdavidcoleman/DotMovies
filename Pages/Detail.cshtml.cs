@@ -24,7 +24,8 @@ namespace DotMovies.Pages
 
         public async Task OnGetAsync()
         {
-            Movie = await _context.Movies.ToListAsync();
+            //Call to OMDB to get movie details
+            // Movie = await _context.Movies.ToListAsync();
         }
 
         public async Task<IActionResult> OnPostAsync()

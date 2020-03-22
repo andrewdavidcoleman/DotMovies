@@ -10,9 +10,9 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <form action="/Results" asp-for="Movie.Title" class="container">
+            <form action="/Results" method="GET" class="container">
                 <!-- <a class="navbar-brand" asp-area="" asp-page="/Index">DotMovies</a> -->
-                <input type="text"/>
+                <input name="title"/>
                 <input type="submit" value="Go"/>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
