@@ -1,8 +1,14 @@
 @page
+@using DotMovies.Models
 @model ResultsModel
 @{
     ViewData["Title"] = "Results";
 }
 <h1>@ViewData["Title"]</h1>
 
-<p>Results</p>
+@foreach(Movie movie in Model.Movies)
+{
+    <div>
+        @movie.Title
+    </div>
+}

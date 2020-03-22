@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using System.Net.Http;
 using DotMovies.Models;
 
 namespace DotMovies.Data
@@ -8,6 +9,8 @@ namespace DotMovies.Data
         public MoviesDbContext(DbContextOptions options) : base(options)
         {
         }
+        
+        public static readonly HttpClient OMDB = new HttpClient();
 
         public DbSet<Movie> Movies { get; set; }
     }

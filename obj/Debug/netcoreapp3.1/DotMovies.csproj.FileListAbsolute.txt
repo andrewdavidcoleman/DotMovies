@@ -66,3 +66,4 @@
 /Users/Andrew/Projects/DotMovies/bin/Debug/netcoreapp3.1/runtimes/win/lib/netstandard2.0/System.Security.Cryptography.ProtectedData.dll
 /Users/Andrew/Projects/DotMovies/obj/Debug/netcoreapp3.1/Razor/Pages/Results.cshtml.g.cs
 /Users/Andrew/Projects/DotMovies/obj/Debug/netcoreapp3.1/Razor/Pages/Detail.cshtml.g.cs
+/Users/Andrew/Projects/DotMovies/bin/Debug/netcoreapp3.1/Newtonsoft.Json.dll

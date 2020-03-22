@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Net.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using DotMovies.Data;
 using DotMovies.Models;
+using Newtonsoft.Json;
 
 namespace DotMovies.Pages
 {
@@ -24,10 +26,17 @@ namespace DotMovies.Pages
 
         public async Task OnGetAsync(string title)
         {
-            Console.WriteLine("=================================");
-            Console.WriteLine(title);
-            Console.WriteLine("=================================");
-            Movies = await _context.Movies.ToListAsync();
+            if(title == null){
+                title = "godfather";
+            }
+            string json = await MoviesDbContext.OMDB.GetStringAsync($"http://www.omdbapi.com/?apikey=3877efa0&s={title}");
+            OMDBResponse omdb = JsonConvert.DeserializeObject<OMDBResponse>(json);
+
+            Movies = new List<Movie>();
+            foreach (Movie movie in omdb.Search)
+            {
+                Movies.Add(movie);
+            }
         }
     }
 }

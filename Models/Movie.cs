@@ -4,7 +4,8 @@ namespace DotMovies.Models
 {
     public class Movie
     {
-        public int Id { get; set; }
+        [Key]
+        public string imdbId { get; set; }
 
         public string Title { get; set; }
 
