@@ -22,7 +22,7 @@ namespace DotMovies.Pages
             _context = context;
         }
 
-        public IList<Movie> Movies { get; set; }
+        public IList<Movie> Movies { get; set; } = new List<Movie>();
 
         public async Task OnGetAsync(string title)
         {
@@ -32,7 +32,6 @@ namespace DotMovies.Pages
             string json = await MoviesDbContext.OMDB.GetStringAsync($"http://www.omdbapi.com/?apikey=3877efa0&s={title}");
             OMDBResponse omdb = JsonConvert.DeserializeObject<OMDBResponse>(json);
 
-            Movies = new List<Movie>();
             foreach (Movie movie in omdb.Search)
             {
                 Movies.Add(movie);
