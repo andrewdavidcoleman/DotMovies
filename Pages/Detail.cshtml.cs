@@ -29,21 +29,27 @@ namespace DotMovies.Pages
                 id = "";
             }
             string json = await MoviesDbContext.OMDB.GetStringAsync($"http://www.omdbapi.com/?apikey=3877efa0&i={id}&plot=full");
-            Console.WriteLine(json);
+
             Movie = JsonConvert.DeserializeObject<Movie>(json);
         }
 
-        // public async Task<IActionResult> OnPostAsync()
-        // {
-        //     if (!ModelState.IsValid)
-        //     {
-        //         return Page();
-        //     }
+        public async Task<IActionResult> OnPostSaveAsync(string id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
 
-        //     _context.Movies.Add(Movie);
-        //     await _context.SaveChangesAsync();
+            if(id == null){
+                id = "";
+            }
+            string json = await MoviesDbContext.OMDB.GetStringAsync($"http://www.omdbapi.com/?apikey=3877efa0&i={id}&plot=full");
+            Movie movie = JsonConvert.DeserializeObject<Movie>(json);
 
-        //     return RedirectToPage("./Results");
-        // }
+            _context.Movies.Add(movie);
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage("./Saved");
+        }
     }
 }

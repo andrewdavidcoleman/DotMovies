@@ -4,15 +4,20 @@
     ViewData["Title"] = "Detail";
 }
 
-<div class="row">
-    <div class="col">
-        <h1>@Model.Movie.Title <span><i class="fas fa-star"></i></span></h1>
+<div id="detail" class="row">
+    <form method="post" class="col">
+        <h1>@Model.Movie.Title 
+            <button type="submit" asp-page="Detail" asp-page-handler="Save" asp-route-id="@Model.Movie.imdbId" title="Save" onclick="saveMovie('@Model.Movie.imdbId', this, event)">
+                <i class="fas fa-star"></i>
+            </button>
+            <!-- <i class="fas fa-star" onclick="saveMovie('@Url.Action("Save", "Movies", new { id = Model.Movie.imdbId})', this, event)"></i> -->
+        </h1>
         <strong>Released:</strong> <span>@Model.Movie.Released</span><br/>
         <strong>Runtime:</strong> <span>@Model.Movie.Runtime</span><br/>
         <strong>Director:</strong> <span>@Model.Movie.Director</span><br/>
         <strong>Starring:</strong> <span>@Model.Movie.Actors</span><br/><br/>
         <p>@Model.Movie.Plot</p>
-    </div>
+    </form>
     <div class="col">
         <img src="@Model.Movie.Poster"/>
     </div>
