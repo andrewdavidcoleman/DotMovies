@@ -6,29 +6,34 @@
 }
 
 <div id="results" class="col">
-    <div class="row">
+    <div class="row d-flex justify-content-center">
         <h1>@ViewData["Title"]</h1>
     </div>
-    <div class="row">
-        @foreach(Movie movie in Model.Movies)
+    <div class="row d-flex justify-content-center">
+        @if(Model.Movies == null || Model.Movies.Count == 0)
         {
-            <a class="card" asp-page="/Detail" asp-route-id="@movie.imdbId">
-                <div class="row h-25">
-                    <div class="col">
-                        <h5>
-                            @movie.Title
-                        </h5>
-                        <p>
-                            @movie.Year
-                        </p>
+            <p>No results</p>
+        } else {
+            @foreach(Movie movie in Model.Movies)
+            {
+                <a class="card" asp-page="/Detail" asp-route-id="@movie.imdbId">
+                    <div class="row h-25">
+                        <div class="col">
+                            <h5>
+                                @movie.Title
+                            </h5>
+                            <p>
+                                @movie.Year
+                            </p>
+                        </div>
                     </div>
-                </div>
-                <div class="row h-75">
-                    <div class="col d-flex align-items-center justify-content-center">
-                        <img src="@movie.Poster" height="150" width="100" />
+                    <div class="row h-75">
+                        <div class="col d-flex align-items-center justify-content-center">
+                            <img src="@movie.Poster" height="150" width="100" />
+                        </div>
                     </div>
-                </div>
-            </a>
+                </a>
+            }
         }
     </div>
 </div>

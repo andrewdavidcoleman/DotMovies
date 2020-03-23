@@ -27,7 +27,7 @@ namespace DotMovies.Pages
         public async Task OnGetAsync(string title)
         {
             if(title == null){
-                title = "godfather";
+                title = "";
             }
             string json = await MoviesDbContext.OMDB.GetStringAsync($"http://www.omdbapi.com/?apikey=3877efa0&s={title}");
             OMDBResponse omdb = JsonConvert.DeserializeObject<OMDBResponse>(json);

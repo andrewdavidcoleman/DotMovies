@@ -22,6 +22,7 @@ namespace DotMovies.Models
         public string Poster { get; set; }
 
         public string Runtime { get; set; }
-
+        
+        public bool Saved { get; set; } = false;
     }
 }

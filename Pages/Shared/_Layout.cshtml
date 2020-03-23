@@ -11,24 +11,29 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <form action="/Results" method="GET" class="container">
-                <!-- <a class="navbar-brand" asp-area="" asp-page="/Index">DotMovies</a> -->
-                <input name="title"/>
-                <input type="submit" value="Go"/>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+            <form class="row flex-fill" action="/Results" method="GET" class="container">
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-8 col-8">
+                    <div class="input-group">
+                        <input class="form-control" type="text" name="title" placeholder="Search..."/>
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit">Go</button>
+                        </div>
+                    </div>
+                </div>
+                <button class="navbar-toggler ml-auto mr-3" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Saved">Saved</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/About">About</a>
+                            <a class="nav-link text-dark ml-3" asp-page="/Saved">Saved</a>
                         </li>
                     </ul>
                 </div>
+                
+
+                
             </form>
         </nav>
     </header>
@@ -37,12 +42,6 @@
             @RenderBody()
         </main>
     </div>
-
-    <!-- <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2020 - DotMovies - <a asp-area="" asp-page="/Privacy">Privacy</a>
-        </div>
-    </footer> -->
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
