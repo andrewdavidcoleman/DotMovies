@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - DotMovies</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/all.css" />
 </head>
 <body>
     <header>
@@ -31,8 +32,8 @@
             </form>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+    <div class="container d-flex flex-fill">
+        <main role="main" class="flex-fill">
             @RenderBody()
         </main>
     </div>

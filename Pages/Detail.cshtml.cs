@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 using DotMovies.Data;
 using DotMovies.Models;
+using Newtonsoft.Json;
 
 namespace DotMovies.Pages
 {
@@ -19,26 +21,29 @@ namespace DotMovies.Pages
             _context = context;
         }
 
-        [BindProperty]
-        public Movie Movie { get; set; }
+        public Movie Movie { get; set; } = new Movie();
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(string id)
         {
-            //Call to OMDB to get movie details
-            // Movie = await _context.Movies.ToListAsync();
-        }
-
-        public async Task<IActionResult> OnPostAsync()
-        {
-            if (!ModelState.IsValid)
-            {
-                return Page();
+            if(id == null){
+                id = "";
             }
-
-            _context.Movies.Add(Movie);
-            await _context.SaveChangesAsync();
-
-            return RedirectToPage("./Results");
+            string json = await MoviesDbContext.OMDB.GetStringAsync($"http://www.omdbapi.com/?apikey=3877efa0&i={id}&plot=full");
+            Console.WriteLine(json);
+            Movie = JsonConvert.DeserializeObject<Movie>(json);
         }
+
+        // public async Task<IActionResult> OnPostAsync()
+        // {
+        //     if (!ModelState.IsValid)
+        //     {
+        //         return Page();
+        //     }
+
+        //     _context.Movies.Add(Movie);
+        //     await _context.SaveChangesAsync();
+
+        //     return RedirectToPage("./Results");
+        // }
     }
 }
