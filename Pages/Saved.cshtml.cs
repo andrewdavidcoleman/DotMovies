@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using DotMovies.Data;
 using DotMovies.Models;
+using Newtonsoft.Json;
 
 namespace DotMovies.Pages
 {
@@ -25,6 +26,32 @@ namespace DotMovies.Pages
         public async Task OnGetAsync()
         {
             Movies = await _context.Movies.ToListAsync();
+        }
+
+        public ActionResult OnGetMovies()
+        {
+            return new JsonResult(_context.Movies.ToList());
+        }
+
+        public async Task<IActionResult> OnPostSaveAsync(string id)
+        {
+            if(id == null){
+                id = "";
+            }
+            string json = await MoviesDbContext.OMDB.GetStringAsync($"http://www.omdbapi.com/?apikey=3877efa0&i={id}&plot=full");
+            Movie movie = JsonConvert.DeserializeObject<Movie>(json);
+
+            if(_context.Movies.Any(m => m.imdbId == id)){
+                _context.Movies.Remove(movie);
+            } else
+            {
+                movie.Saved = true;
+                _context.Movies.Add(movie);
+            }
+
+            await _context.SaveChangesAsync();
+            
+            return new JsonResult(_context.Movies.ToList());
         }
     }
 }

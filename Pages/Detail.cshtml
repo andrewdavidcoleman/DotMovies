@@ -5,12 +5,14 @@
 }
 
 <div id="detail" class="row">
+    @inject Microsoft.AspNetCore.Antiforgery.IAntiforgery antiforgery
     <form method="post" class="col">
         <h1>@Model.Movie.Title 
-            <button class="@(Model.Movie.Saved ? "saved" : "")" type="submit" asp-page="Detail" asp-page-handler="Save" asp-route-id="@Model.Movie.imdbId" title="@(Model.Movie.Saved ? "Unsave" : "Save")">
-                <i class="fas fa-star"></i>
-            </button>
-            <!-- <i class="fas fa-star" onclick="saveMovie('@Url.Action("Save", "Movies", new { id = Model.Movie.imdbId})', this, event)"></i> -->
+            <i
+            class=" fas fa-star @(Model.Movie.Saved ? "saved" : "")" 
+            title="@(Model.Movie.Saved ? "Unsave" : "Save")"
+            onclick="saveMovie('@Model.Movie.imdbId', this, event)"
+            ></i>
         </h1>
         <strong>Released:</strong> <span>@Model.Movie.Released</span><br/>
         <strong>Runtime:</strong> <span>@Model.Movie.Runtime</span><br/>

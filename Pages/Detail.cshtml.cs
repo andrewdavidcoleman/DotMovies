@@ -37,31 +37,5 @@ namespace DotMovies.Pages
 
             Movie = movie;
         }
-
-        public async Task<IActionResult> OnPostSaveAsync(string id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-
-            if(id == null){
-                id = "";
-            }
-            string json = await MoviesDbContext.OMDB.GetStringAsync($"http://www.omdbapi.com/?apikey=3877efa0&i={id}&plot=full");
-            Movie movie = JsonConvert.DeserializeObject<Movie>(json);
-
-            if(_context.Movies.Any(m => m.imdbId == id)){
-                _context.Movies.Remove(movie);
-            } else
-            {
-                movie.Saved = true;
-                _context.Movies.Add(movie);
-            }
-
-            await _context.SaveChangesAsync();
-
-            return RedirectToPage("./Saved");
-        }
     }
 }
