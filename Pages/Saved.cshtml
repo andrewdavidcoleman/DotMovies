@@ -12,7 +12,7 @@
     <div class="row d-flex justify-content-center">
         @if(Model.Movies == null || Model.Movies.Count == 0)
         {
-            <p>You have no saved movies.</p>
+            <p>You have no saved movies.</p><br/>
             <p>To save a movie, search a title, select a movie, and click the star next to the title.</p>
         } else {
             @foreach(Movie movie in Model.Movies)
