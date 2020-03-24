@@ -27,6 +27,7 @@ namespace DotMovies
         {
             services.AddDbContext<MoviesDbContext>(options => options.UseInMemoryDatabase("movies"));
             services.AddRazorPages();
+            services.AddServerSideBlazor();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,6 +54,7 @@ namespace DotMovies
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
+                endpoints.MapBlazorHub();
             });
         }
     }
