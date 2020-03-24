@@ -18,13 +18,13 @@
             @foreach(Movie movie in Model.Movies)
             {
                 <component type="typeof(MovieCard)" 
-                render-mode="ServerPrerendered"
-                param-Id="@movie.imdbId"
-                param-Title="@movie.Title"
-                param-Year="@movie.Year"
-                param-Poster="@movie.Poster"
-                param-Saved="@movie.Saved"
-                />
+                    render-mode="ServerPrerendered"
+                    param-Id="@movie.imdbId"
+                    param-Title="@movie.Title"
+                    param-Year="@movie.Year"
+                    param-Poster="@movie.Poster"
+                    param-Saved="@movie.Saved"
+                    />
             }
         }
     </div>

@@ -7,38 +7,27 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using DotMovies.Data;
 using DotMovies.Models;
-using Newtonsoft.Json;
+using DotMovies.Services;
 
 namespace DotMovies.Pages
 {
     public class ResultsModel : PageModel
     {
-        private readonly MoviesDbContext _context;
+        private readonly ResultsService _service;
 
-        public ResultsModel(MoviesDbContext context)
+        public ResultsModel(ResultsService service)
         {
-            _context = context;
+            _service = service;
         }
 
         public IList<Movie> Movies { get; set; } = new List<Movie>();
 
         public async Task OnGetAsync(string title)
         {
-            if(title == null){
-                title = "";
-            }
-            string json = await MoviesDbContext.OMDB.GetStringAsync($"http://www.omdbapi.com/?apikey=3877efa0&s={title}");
-            OMDBResponse omdb = JsonConvert.DeserializeObject<OMDBResponse>(json);
-
-            foreach (Movie movie in omdb.Search)
-            {
-                if(_context.Saved.Any(m => m.imdbId == movie.imdbId)){
-                    movie.Saved = true;
-                }
-                Movies.Add(movie);
-            }
+            Movies = await _service.GetByTitle(title);
         }
     }
 }

@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using DotMovies.Data;
+using DotMovies.Services;
 
 namespace DotMovies
 {
@@ -28,6 +29,8 @@ namespace DotMovies
             services.AddDbContext<MoviesDbContext>(options => options.UseInMemoryDatabase("movies"));
             services.AddRazorPages();
             services.AddServerSideBlazor();
+            services.AddTransient<ResultsService>();
+            services.AddTransient<SavedService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

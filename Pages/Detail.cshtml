@@ -1,4 +1,6 @@
 @page
+@using DotMovies.Pages
+@using DotMovies.Components
 @model DetailModel
 @{
     ViewData["Title"] = "Detail";
@@ -8,11 +10,10 @@
     @inject Microsoft.AspNetCore.Antiforgery.IAntiforgery antiforgery
     <form method="post" class="col">
         <h1>@Model.Movie.Title 
-            <i
-            class=" fas fa-star @(Model.Movie.Saved ? "saved" : "")" 
-            title="@(Model.Movie.Saved ? "Unsave" : "Save")"
-            onclick="saveMovie('@Model.Movie.imdbId', this, event)"
-            ></i>
+            <component type="typeof(Star)" 
+                render-mode="ServerPrerendered"
+                param-Movie="@Model.Movie"
+                />
         </h1>
         <strong>Released:</strong> <span>@Model.Movie.Released</span><br/>
         <strong>Runtime:</strong> <span>@Model.Movie.Runtime</span><br/>
