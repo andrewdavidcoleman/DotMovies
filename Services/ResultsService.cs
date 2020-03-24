@@ -18,12 +18,21 @@ namespace DotMovies.Services
             _context = context;
         }
 
-        public async Task<List<Movie>> Get()
+        public async Task<Movie> Get(string id)
         {
-            return await _context.Results.ToListAsync();
+            //Dummy data from OMDB
+            string json = await MoviesDbContext.OMDB.GetStringAsync($"http://www.omdbapi.com/?apikey=3877efa0&i={id}&plot=full");
+            Movie movie = JsonConvert.DeserializeObject<Movie>(json);
+
+            List<Movie> savedMovies = await _context.Saved.ToListAsync();
+            if(savedMovies.Any(m => m.imdbId == movie.imdbId)){
+                movie.Saved = true;
+            }
+
+            return movie;
         }
 
-        public async Task<List<Movie>> GetByTitle(string title){
+        public async Task<List<Movie>> Search(string title){
 
             if(title == null){
                 title = "";
@@ -44,42 +53,6 @@ namespace DotMovies.Services
             await _context.SaveChangesAsync();
 
             return omdb.Search;
-        }
-
-        public async Task<Movie> Get(string id)
-        {
-            //Dummy data from OMDB
-            string json = await MoviesDbContext.OMDB.GetStringAsync($"http://www.omdbapi.com/?apikey=3877efa0&i={id}&plot=full");
-            Movie movie = JsonConvert.DeserializeObject<Movie>(json);
-
-            List<Movie> savedMovies = await _context.Saved.ToListAsync();
-            if(savedMovies.Any(m => m.imdbId == movie.imdbId)){
-                movie.Saved = true;
-            }
-
-            return movie;
-        }
-
-        public async Task<Movie> Add(Movie movie)
-        {
-            _context.Results.Add(movie);
-            await _context.SaveChangesAsync();
-            return movie;
-        }
-
-        public async Task<Movie> Update(Movie movie)
-        {
-            _context.Entry(movie).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
-            return movie;
-        }
-
-        public async Task<Movie> Delete(string id)
-        {
-            var movie = await _context.Results.FindAsync(id);
-            _context.Results.Remove(movie);
-            await _context.SaveChangesAsync();
-            return movie;
         }
     }
 }

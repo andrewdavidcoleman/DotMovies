@@ -27,7 +27,7 @@ namespace DotMovies.Pages
 
         public async Task OnGetAsync(string title)
         {
-            Movies = await _service.GetByTitle(title);
+            Movies = await _service.Search(title);
         }
     }
 }
