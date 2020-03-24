@@ -1,0 +1,27 @@
+@using Microsoft.EntityFrameworkCore;
+@using DotMovies.Models;
+@using DotMovies.Data
+@using DotMovies.Services
+@inject SavedService service
+
+<i class=" fas fa-star @(Movie.Saved ? "saved" : "")" title="@(Movie.Saved ? "Unsave" : "Save")" @onclick="OnClick"></i>
+
+@code{
+
+    [Parameter]
+    public Movie Movie { get; set; }
+
+    private async Task OnClick()
+    {
+        List<Movie> movies = await service.Get();
+
+        if(movies.Any(m => m.imdbId == Movie.imdbId)){
+            Movie.Saved = false;
+            await service.Delete(Movie.imdbId);
+        } else
+        {
+            Movie.Saved = true;
+            await service.Add(Movie);
+        }
+    }
+}
