@@ -51,6 +51,12 @@ namespace DotMovies.Services
             //Dummy data from OMDB
             string json = await MoviesDbContext.OMDB.GetStringAsync($"http://www.omdbapi.com/?apikey=3877efa0&i={id}&plot=full");
             Movie movie = JsonConvert.DeserializeObject<Movie>(json);
+
+            List<Movie> savedMovies = await _context.Saved.ToListAsync();
+            if(savedMovies.Any(m => m.imdbId == movie.imdbId)){
+                movie.Saved = true;
+            }
+
             return movie;
         }
 
