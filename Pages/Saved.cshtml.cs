@@ -25,12 +25,12 @@ namespace DotMovies.Pages
 
         public async Task OnGetAsync()
         {
-            Movies = await _context.Movies.ToListAsync();
+            Movies = await _context.Saved.ToListAsync();
         }
 
         public ActionResult OnGetMovies()
         {
-            return new JsonResult(_context.Movies.ToList());
+            return new JsonResult(_context.Saved.ToList());
         }
 
         public async Task<IActionResult> OnPostSaveAsync(string id)
@@ -41,17 +41,17 @@ namespace DotMovies.Pages
             string json = await MoviesDbContext.OMDB.GetStringAsync($"http://www.omdbapi.com/?apikey=3877efa0&i={id}&plot=full");
             Movie movie = JsonConvert.DeserializeObject<Movie>(json);
 
-            if(_context.Movies.Any(m => m.imdbId == id)){
-                _context.Movies.Remove(movie);
+            if(_context.Saved.Any(m => m.imdbId == id)){
+                _context.Saved.Remove(movie);
             } else
             {
                 movie.Saved = true;
-                _context.Movies.Add(movie);
+                _context.Saved.Add(movie);
             }
 
             await _context.SaveChangesAsync();
             
-            return new JsonResult(_context.Movies.ToList());
+            return new JsonResult(_context.Saved.ToList());
         }
     }
 }

@@ -12,6 +12,6 @@ namespace DotMovies.Data
         
         public static readonly HttpClient OMDB = new HttpClient();
 
-        public DbSet<Movie> Movies { get; set; }
+        public DbSet<Movie> Saved { get; set; }
     }
 }

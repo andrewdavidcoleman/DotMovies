@@ -34,6 +34,9 @@ namespace DotMovies.Pages
 
             foreach (Movie movie in omdb.Search)
             {
+                if(_context.Saved.Any(m => m.imdbId == movie.imdbId)){
+                    movie.Saved = true;
+                }
                 Movies.Add(movie);
             }
         }

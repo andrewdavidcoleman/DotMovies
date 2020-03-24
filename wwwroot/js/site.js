@@ -1,5 +1,6 @@
 ﻿function saveMovie(id, element, event) {
     $(element).toggleClass('saved');
+
     $.ajax({
         type: "POST",
         url: "/Saved?handler=Save",

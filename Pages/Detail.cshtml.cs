@@ -31,7 +31,7 @@ namespace DotMovies.Pages
 
             string json = await MoviesDbContext.OMDB.GetStringAsync($"http://www.omdbapi.com/?apikey=3877efa0&i={id}&plot=full");
             Movie movie = JsonConvert.DeserializeObject<Movie>(json);
-            if(_context.Movies.Any(m => m.imdbId == id)){
+            if(_context.Saved.Any(m => m.imdbId == id)){
                 movie.Saved = true;
             }
 

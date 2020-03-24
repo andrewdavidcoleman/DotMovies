@@ -37,6 +37,17 @@ nav .nav-link:hover {
   border-bottom: 2px solid gray;
 }
 
+i {
+  color: lightgray;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s cubic-bezier(.25,.8,.25,1);
+}
+
+i.saved {
+  color: gold;
+}
+
 #results .card {
   height: 275px;
   width: 200px;
@@ -50,17 +61,6 @@ nav .nav-link:hover {
 
 #results .card:hover {
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-}
-
-#detail i {
-  color: lightgray;
-  cursor: pointer;
-  border: none;
-  transition: all 0.2s cubic-bezier(.25,.8,.25,1);
-}
-
-#detail i.saved {
-  color: gold;
 }
 
 #detail img {

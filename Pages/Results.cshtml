@@ -21,10 +21,12 @@
                         <div class="col">
                             <h5>
                                 @movie.Title
+                                @if(movie.Saved)
+                                {
+                                    <i class="fas fa-star saved" title="@(movie.Saved ? "Unsave" : "Save")" ></i>
+                                }
                             </h5>
-                            <p>
-                                @movie.Year
-                            </p>
+                            <p>@movie.Year</p>
                         </div>
                     </div>
                     <div class="row h-75">
